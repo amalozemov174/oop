@@ -1,8 +1,9 @@
 package com.gb;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Relatives {
+public class Relatives implements Serializable {
 
     private Human human;
 
