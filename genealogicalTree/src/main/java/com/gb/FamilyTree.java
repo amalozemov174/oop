@@ -1,8 +1,11 @@
 package com.gb;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
-public class FamilyTree {
+public class FamilyTree implements Iterable<Human> {
 
     private ArrayList<Human> familyTree;
 
@@ -24,4 +27,20 @@ public class FamilyTree {
         return tmp;
     }
 
+    @Override
+    public Iterator<Human> iterator() {
+        return familyTree.iterator();
+    }
+
+    public void sortByName() {
+        Collections.sort(familyTree);
+    }
+
+    public void sortByDate(HumanComparatorByDate comparatorByDate) {
+        Collections.sort(familyTree, comparatorByDate);
+    }
+
+    public ArrayList<Human> getFamilyTree() {
+        return this.familyTree;
+    }
 }

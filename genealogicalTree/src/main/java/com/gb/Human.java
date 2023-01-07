@@ -3,28 +3,31 @@ package com.gb;
 import java.io.Serializable;
 import java.util.*;
 
-public class Human implements Serializable {
+public class Human implements Serializable, Comparable<Human> {
 
     private String name;
     private String surname;
     private Map<Relation, ArrayList<Human>> relatives;
     private Boolean male;
-
     private ArrayList<Human> childrenList;
 
-    public Human(Boolean male, String name, String surname) {
+    private Date birthDate;
+
+    public Human(Boolean male, String name, String surname, Date birthDate) {
         relatives = new HashMap<>();
         this.male = male;
         this.name = name;
         this.surname = surname;
+        this.birthDate = birthDate;
         childrenList = new ArrayList<>();
     }
 
-    public Human(Human mother, Human father, Boolean male, String name, String surname){
+    public Human(Human mother, Human father, Boolean male, String name, String surname, Date birthDate){
         relatives = new HashMap<>();
         this.male = male;
         this.name = name;
         this.surname = surname;
+        this.birthDate = birthDate;
         childrenList = new ArrayList<>();
         ArrayList<Human> fathers = new ArrayList<Human>();
         if(father != null){
@@ -117,12 +120,26 @@ public class Human implements Serializable {
         return this.name;
     }
 
+
+
+    @Override
+    public int compareTo(Human o) {
+        return this.getName().compareTo(o.getName());
+    }
+
+
+
     @Override
     public String toString() {
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", male=" + male +
+                ", birthDate=" + birthDate +
                 '}';
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
     }
 }
