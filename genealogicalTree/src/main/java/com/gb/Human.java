@@ -1,19 +1,34 @@
 package com.gb;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Human {
+public class Human implements Serializable, Comparable<Human> {
 
     private String name;
     private String surname;
     private Map<Relation, ArrayList<Human>> relatives;
     private Boolean male;
+    private ArrayList<Human> childrenList;
 
-    public Human(Human mother, Human father, Boolean male, String name, String surname){
+    private Date birthDate;
+
+    public Human(Boolean male, String name, String surname, Date birthDate) {
         relatives = new HashMap<>();
         this.male = male;
         this.name = name;
         this.surname = surname;
+        this.birthDate = birthDate;
+        childrenList = new ArrayList<>();
+    }
+
+    public Human(Human mother, Human father, Boolean male, String name, String surname, Date birthDate){
+        relatives = new HashMap<>();
+        this.male = male;
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        childrenList = new ArrayList<>();
         ArrayList<Human> fathers = new ArrayList<Human>();
         if(father != null){
             fathers.add(father);
@@ -22,8 +37,10 @@ public class Human {
         if(mother != null){
             fathers.add(mother);
         }
-        relatives.put(Relation.Father, fathers);
-        relatives.put(Relation.Mother, mothers);
+        mother.setChildren(this);
+        father.setChildren(this);
+//        relatives.put(Relation.Father, fathers);
+//        relatives.put(Relation.Mother, mothers);
     }
 
 
@@ -55,8 +72,6 @@ public class Human {
             return this.relatives.get(Relation.Husband).get(0);
         }
     }
-
-
 
     public void setPartner(Human partner){
         if(male) {
@@ -98,7 +113,21 @@ public class Human {
         else {
             this.relatives.get(Relation.Child).add(child);
         }
+        childrenList.add(child);
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+
+
+    @Override
+    public int compareTo(Human o) {
+        return this.getName().compareTo(o.getName());
+    }
+
+
 
     @Override
     public String toString() {
@@ -106,6 +135,11 @@ public class Human {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", male=" + male +
+                ", birthDate=" + birthDate +
                 '}';
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
     }
 }
