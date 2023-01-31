@@ -39,8 +39,6 @@ public class Human implements Serializable, Comparable<Human> {
         }
         mother.setChildren(this);
         father.setChildren(this);
-//        relatives.put(Relation.Father, fathers);
-//        relatives.put(Relation.Mother, mothers);
     }
 
 
@@ -120,14 +118,10 @@ public class Human implements Serializable, Comparable<Human> {
         return this.name;
     }
 
-
-
     @Override
     public int compareTo(Human o) {
         return this.getName().compareTo(o.getName());
     }
-
-
 
     @Override
     public String toString() {
